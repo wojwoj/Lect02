@@ -10,10 +10,11 @@ import san.coll.fn.Unary;
 public class TestISeq {
 
   public static void main(String[] args) {
-     testLinkedSeq();
+    // testLinkedSeq();
     // testNaturals();
     // testPromise();
     // testMap();
+	  testMap1();
 
   /*  ISeq coll = LinkedSeq.create(1, 2, 3, 4, 5);
     
@@ -22,6 +23,8 @@ public class TestISeq {
     */
   }
 
+
+  
   private static void testMap() {
     ISeq coll = LinkedSeq.create(1, 2, 3, 4, 5);
     System.out.println(coll);
@@ -58,21 +61,34 @@ public class TestISeq {
   private static void testNaturals() {
     ISeq naturals = Utils.integers(-10);
 
-    Utils.doSeq(naturals, 5, new Unary() {
+  Utils.doSeq(naturals, 5, new Unary() {
       @Override
       public Object call(Object element) {
         System.out.println(element);
         return null;
       }
     });
-
+  
     Utils.doSeq(naturals, 10, new Unary() {
       @Override
       public Object call(Object element) {
         System.out.println(element);
         return null;
       }
-    });
+    });/**/
   }
+  private static void testMap1() {
+	    ISeq naturals = Utils.integers(-10);
+	    System.out.println(naturals);
+
+	    ISeq newColl = Utils.map(new Unary() {
+	      @Override
+	      public Object call(Object param) {
+	        return (Integer) param * 2;
+	      }
+	    }, naturals,10);
+
+	    System.out.println(newColl);
+	  }
 
 }
