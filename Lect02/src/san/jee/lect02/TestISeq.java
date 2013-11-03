@@ -79,16 +79,28 @@ public class TestISeq {
   }
   private static void testMap1() {
 	    ISeq naturals = Utils.integers(-10);
-	    System.out.println(naturals);
+	    Utils.doSeq(naturals, 10, new Unary() {
+	        @Override
+	        public Object call(Object element) {
+	          System.out.println(element);
+	          return null;
+	        }
+	      });
 
-	    ISeq newColl = Utils.map(new Unary() {
+	    ISeq newColl = Utils.map2(new Unary() {
 	      @Override
 	      public Object call(Object param) {
 	        return (Integer) param * 2;
 	      }
-	    }, naturals,10);
+	    }, naturals);
 
-	    System.out.println(newColl);
+	    Utils.doSeq(newColl, 10, new Unary() {
+	        @Override
+	        public Object call(Object element) {
+	          System.out.println(element);
+	          return null;
+	        }
+	      });
 	  }
 
 }

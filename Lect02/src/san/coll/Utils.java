@@ -1,5 +1,7 @@
 package san.coll;
 
+import java.security.acl.LastOwnerException;
+
 import san.coll.fn.Binary;
 import san.coll.fn.NoArg;
 import san.coll.fn.Unary;
@@ -59,17 +61,20 @@ public class Utils {
 		return result;
 	}
 
-	public static ISeq map(Unary f, ISeq coll,long maxSteps) {
-		ISeq result = LinkedSeq.EMPTY;
-		ISeq seq = coll;
-		long count = 0;
-		while (!seq.isEmpty() && count != maxSteps) {
-			result = result.cons(f.call(seq.first()));
-			seq = seq.rest();
-			count += 1;
-		}
-
-		return result;
+	public static ISeq map2(final Unary f, final ISeq coll) {
+		/*
+		 * public static ISeq integers(final int start) { return
+		 * LazySeq.create(start, new NoArg() {
+		 * 
+		 * @Override public Object call() { return integers(start + 1); } }); }
+		 */
+		return LazySeq.create(f.call(coll.first()), new NoArg() {
+			@Override
+			public Object call() {
+				// TODO Auto-generated method stub
+				return map2(f,coll.rest());
+			}
+		});
 	}
 
 	public static Object reduce(Binary f, Object start, ISeq coll) {
