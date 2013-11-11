@@ -10,11 +10,11 @@ import san.coll.fn.Unary;
 public class TestISeq {
 
   public static void main(String[] args) {
-    // testLinkedSeq();
     // testNaturals();
     // testPromise();
     // testMap();
 	  testMap1();
+	  testLinkedSeq();
 
   /*  ISeq coll = LinkedSeq.create(1, 2, 3, 4, 5);
     
@@ -55,7 +55,8 @@ public class TestISeq {
   private static void testLinkedSeq() {
     ISeq coll = LinkedSeq.create(1, 2, 3, 4);
     System.out.println(coll);
-    coll.interpose("a", coll);
+    ISeq newcoll = coll.interpose(", ", coll);
+    System.out.println(newcoll);
   }
 
   private static void testNaturals() {

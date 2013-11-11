@@ -57,22 +57,16 @@ public class Utils {
 			result = result.cons(f.call(seq.first()));
 			seq = seq.rest();
 		}
-
 		return result;
 	}
 
+	
 	public static ISeq map2(final Unary f, final ISeq coll) {
-		/*
-		 * public static ISeq integers(final int start) { return
-		 * LazySeq.create(start, new NoArg() {
-		 * 
-		 * @Override public Object call() { return integers(start + 1); } }); }
-		 */
 		return LazySeq.create(f.call(coll.first()), new NoArg() {
 			@Override
 			public Object call() {
 				// TODO Auto-generated method stub
-				return map2(f,coll.rest());
+				return map2(f, coll.rest());
 			}
 		});
 	}
